@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1619798099106-00
+      author: deroffal
+      changes:
+        - createTable:
+            schemaName: public
+            tableName: recette
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  remarks: id technique
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: recettePK
+              - column:
+                  name: nom
+                  type: VARCHAR(128)
+                  remarks: id fonctionnel
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  remarks: description de la recette
+              - column:
+                  name: date_creation
+                  type: timestamp with timezone
+                  remarks: date derniere synchro
