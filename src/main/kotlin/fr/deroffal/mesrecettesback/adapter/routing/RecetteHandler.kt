@@ -1,4 +1,4 @@
-package fr.deroffal.mesrecettesback.adapter.router
+package fr.deroffal.mesrecettesback.adapter.routing
 
 import fr.deroffal.mesrecettesback.domain.model.Recette
 import fr.deroffal.mesrecettesback.domain.services.RecetteService
