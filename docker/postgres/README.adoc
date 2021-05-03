@@ -1,0 +1,18 @@
+= Création de la base de données.
+
+== 1ère solution : créer un une image Postgres avec l'extension.
+
+Création d'une image Postgres contenant l'extension `uuid-ossp` nécessaire pour utiliser la fonction `uuid_generate_v4()`.
+
+[source,bash]
+----
+chmod 755 load-extensions.sh
+docker build . -t postgres-uuid
+----
+
+NOTE: Création de l'extension dans la base template `template1` qui est utilisée comme template pour la création des autres bases.
+Cependant, si on initialise une base de données avec la variable `POSTGRES_DB`, elle ne semble pas créée à partir de ce template.
+
+== 2ème solution : script d'initialisation
+
+Dans le `docker-compose.yml`, monter un volume avec un script jouant la création de l'extension.

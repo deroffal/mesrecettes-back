@@ -1,4 +1,13 @@
 databaseChangeLog:
+  - property:
+      dbms: postgresql
+      name: uuid_type
+      value: uuid
+  - property:
+      dbms: postgresql
+      name: uuid_function
+      value: uuid_generate_v4()
+
   - changeSet:
       id: 1619798099106-00
       author: deroffal
@@ -9,8 +18,8 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
+                  type: ${uuid_type}
+                  defaultValueComputed: ${uuid_function}
                   remarks: id technique
                   constraints:
                     primaryKey: true

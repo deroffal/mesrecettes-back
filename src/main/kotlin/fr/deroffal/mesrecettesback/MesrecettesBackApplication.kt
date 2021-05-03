@@ -2,10 +2,14 @@ package fr.deroffal.mesrecettesback
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 
+
+@EnableR2dbcRepositories
 @SpringBootApplication
 class MesrecettesBackApplication
 
 fun main(args: Array<String>) {
-	runApplication<MesrecettesBackApplication>(*args)
+    runApplication<MesrecettesBackApplication>(*args)
 }
+
