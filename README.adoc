@@ -1,0 +1,25 @@
+= mesrecettes-back
+
+* Projet Spring Boot / Reactive.
+* Intégration continue via Github Actions (Sonar, Release, Docker)
+* Tentative d'implémentation d'Architecture Onion.
+
+== Démarrage
+
+. Avoir une base de données Postgres avec l'extension `uuid-ossp` d'installée.
+Plus d'info link:docker/postgres/README.adoc[ici].
+. Récupérer l'image Docker et la démarrer :
++
+[source,bash]
+----
+docker run \
+-e "spring.r2dbc.url=r2dbc:postgresql://host.docker.internal:54320/mesrecettesdb" \
+-e "spring.r2dbc.username=postgres" \
+-e "spring.r2dbc.password=pwd" \
+-e "spring.liquibase.url=jdbc:postgresql://host.docker.internal:54320/mesrecettesdb" \
+-e "spring.liquibase.user=postgres" \
+-e "spring.liquibase.password=pwd" \
+-p 8080:8080 mesrecettes-back
+----
+
+NOTE: En plus de la connexion R2BC, on doit avoir une connexion JDBC à la base de données pour pouvoir utiliser Liquibase.
