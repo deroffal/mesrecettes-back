@@ -11,14 +11,14 @@
 
     <groupId>fr.deroffal</groupId>
     <artifactId>mesrecettes-back</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <name>mesrecettes-back</name>
     <description>Back</description>
 
     <scm>
         <developerConnection>scm:git:https://github.com/deroffal/mesrecettes-back.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>mesrecettes-back-0.0.1</tag>
     </scm>
 
     <distributionManagement>
