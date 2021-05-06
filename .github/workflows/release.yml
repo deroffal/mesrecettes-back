@@ -50,10 +50,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B -U clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B -U -P coverage clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
       - name: Release & Publish
-        run: mvn -B --settings settings.xml release:clean release:prepare release:perform
+        run: mvn -B --settings settings.xml -Darguments=-DskipTests release:clean release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
