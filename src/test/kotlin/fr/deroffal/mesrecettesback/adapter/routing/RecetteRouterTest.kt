@@ -1,6 +1,7 @@
 package fr.deroffal.mesrecettesback.adapter.routing
 
 import fr.deroffal.mesrecettesback.domain.model.Recette
+import fr.deroffal.mesrecettesback.domain.model.Source
 import fr.deroffal.mesrecettesback.domain.model.TypePlat
 import fr.deroffal.mesrecettesback.domain.services.RecetteService
 import org.junit.jupiter.api.BeforeEach
@@ -41,7 +42,7 @@ internal class RecetteRouterTest(
         //given:
         val id = UUID.randomUUID()
         val now = Instant.parse("2021-05-03T21:37:00.000Z")
-        val recette = Mono.just(Recette("nom recette", "description recette", Instant.now(), TypePlat.ENTREE)
+        val recette = Mono.just(Recette("nom recette", "description recette", Instant.now(), TypePlat.ENTREE, Source.WEB, "url")
             .apply {
                 this.id = id
                 this.dateCreation = now

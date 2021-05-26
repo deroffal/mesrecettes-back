@@ -48,3 +48,21 @@ databaseChangeLog:
               - column:
                   name: type_plat
                   type: VARCHAR(16)
+
+  - changeSet:
+      id: 1622040603102-01
+      author: deroffal
+      changes:
+        - addColumn:
+            schemaName: public
+            tableName: recette
+            columns:
+              - column:
+                  name: source
+                  type: VARCHAR(16)
+              - column:
+                  name: source_web
+                  type: VARCHAR(128)
+        - sql:
+            dbms: 'postgresql'
+            sql: ALTER TABLE public.recette ADD CONSTRAINT recette_sourceWeb_check CHECK (source='WEB' and source_web is not null)

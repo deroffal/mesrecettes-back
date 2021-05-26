@@ -12,7 +12,9 @@ data class Recette(
     var nom: String,
     var description: String,
     var dateCreation: Instant = Instant.now(),
-    @Enumerated(STRING) var typePlat: TypePlat
+    @Enumerated(STRING) var typePlat: TypePlat,
+    @Enumerated(STRING) var source: Source,
+    var sourceWeb: String
 ) {
 
     @Id
