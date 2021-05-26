@@ -4,6 +4,7 @@ import fr.deroffal.mesrecettesback.domain.model.Recette
 import fr.deroffal.mesrecettesback.domain.model.Source
 import fr.deroffal.mesrecettesback.domain.model.TypePlat
 import fr.deroffal.mesrecettesback.domain.services.RecetteService
+import fr.deroffal.mesrecettesback.model.RecetteBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -42,10 +43,9 @@ internal class RecetteRouterTest(
         //given:
         val id = UUID.randomUUID()
         val now = Instant.parse("2021-05-03T21:37:00.000Z")
-        val recette = Mono.just(Recette("nom recette", "description recette", Instant.now(), TypePlat.ENTREE, Source.WEB, "url")
+        val recette = Mono.just(RecetteBuilder(dateCreation = now).build()
             .apply {
                 this.id = id
-                this.dateCreation = now
             })
         `when`(recetteService.findById(id)).thenReturn(recette)
 
@@ -62,6 +62,9 @@ internal class RecetteRouterTest(
             .jsonPath("$.description").isEqualTo("description recette")
             .jsonPath("$.id").isEqualTo(id.toString())
             .jsonPath("$.dateCreation").isEqualTo("2021-05-03T21:37:00Z")
+            .jsonPath("$.typePlat").isEqualTo("PLAT")
+            .jsonPath("$.source").isEqualTo("WEB")
+            .jsonPath("$.sourceWeb").isEqualTo("https://www.marmiton.org/maRecette")
     }
 
     @Test
