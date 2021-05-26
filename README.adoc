@@ -6,8 +6,6 @@
 
 == Démarrage
 
-. Avoir une base de données Postgres avec l'extension `uuid-ossp` d'installée.
-Plus d'info link:docker/postgres/README.adoc[ici].
 . Récupérer l'image Docker et la démarrer :
 +
 [source,bash]

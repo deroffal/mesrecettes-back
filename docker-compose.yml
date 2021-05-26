@@ -1,12 +1,10 @@
 version: "3.9"
 services:
   postgres:
-    image: "postgres-uuid"
+    image: postgres:13.2
     container_name: "mesrecettesdb"
     environment:
       POSTGRES_DB: mesrecettesdb
       POSTGRES_PASSWORD: pwd
-    volumes:
-      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "54320:5432"

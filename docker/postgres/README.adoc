@@ -16,3 +16,19 @@ Cependant, si on initialise une base de données avec la variable `POSTGRES_DB`,
 == 2ème solution : script d'initialisation
 
 Dans le `docker-compose.yml`, monter un volume avec un script jouant la création de l'extension.
+
+[source,yaml]
+----
+version: "3.9"
+services:
+  postgres:
+    image: "postgres-uuid"
+    container_name: "mesrecettesdb"
+    environment:
+      POSTGRES_DB: mesrecettesdb
+      POSTGRES_PASSWORD: pwd
+    volumes:
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "54320:5432"
+----
