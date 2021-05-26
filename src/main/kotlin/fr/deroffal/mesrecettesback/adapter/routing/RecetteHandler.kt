@@ -6,37 +6,32 @@ import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.ServerResponse.*
 import reactor.core.publisher.Mono
+import reactor.kotlin.core.publisher.toMono
+import java.net.URI
 import java.util.*
-
 
 @Component
 class RecetteHandler(var recetteService: RecetteService) {
 
-    var notFound = ServerResponse.notFound().build()
+    var notFound = notFound().build()
 
-    fun getRecette(request: ServerRequest): Mono<ServerResponse> {
-        val id = UUID.fromString(request.pathVariable("id"))
-        val recette = recetteService.findById(id)
+    fun list(request: ServerRequest): Mono<ServerResponse> =
+        ok()
+            .body(recetteService.findAll(), Recette::class.java)
 
-        //TODO : sans le unwrap/wrap de Mono ?
-//        return ServerResponse.ok()
-//            .contentType(APPLICATION_JSON)
-//            .body(recette, Recette::class.java)
-//            .switchIfEmpty(notFound)
-        return recette.flatMap {
-            ServerResponse.ok()
-                .contentType(APPLICATION_JSON)
-                .body(Mono.just(it), Recette::class.java)
-        }.switchIfEmpty(notFound)
-    }
+    fun getRecette(request: ServerRequest): Mono<ServerResponse> =
+        UUID.fromString(request.pathVariable("id")).toMono()
+            .flatMap { recetteService.findById(it) }
+            .flatMap {
+                ok()
+                    .contentType(APPLICATION_JSON)
+                    .body(Mono.just(it), Recette::class.java)
+            }.switchIfEmpty(notFound)
 
-    fun createRecette(request: ServerRequest): Mono<ServerResponse> = request.bodyToMono(Recette::class.java)
-        .flatMap {
-            ServerResponse.ok()
-                    //TODO voir pour une réponse 201
-//            ServerResponse.created(URI(""))
-                .contentType(APPLICATION_JSON)
-                .body(recetteService.save(it), Recette::class.java)
-        }
+    fun createRecette(request: ServerRequest): Mono<ServerResponse> =
+        request.bodyToMono(Recette::class.java)
+            .flatMap { recetteService.save(it) }
+            .flatMap { created(URI("/recette/${it.id}")).build() }
 }

@@ -11,4 +11,6 @@ class RecetteService(var recetteRepository: RecetteRepository) {
     fun findById(id: UUID) = recetteRepository.findById(id)
 
     fun save(recette: Recette): Mono<Recette> = recetteRepository.save(recette)
+
+    fun findAll() = recetteRepository.findAll()
 }

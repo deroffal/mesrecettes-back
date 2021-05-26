@@ -12,8 +12,9 @@ class RecetteRouter(private val recetteHandler: RecetteHandler) {
     @Bean
     fun route() = router {
         ("/recette" and accept(APPLICATION_JSON)).nest {
-            GET("/{id}", recetteHandler::getRecette)
+            GET("/", recetteHandler::list)
             POST("/", recetteHandler::createRecette)
+            GET("/{id}", recetteHandler::getRecette)
         }
 
     }
