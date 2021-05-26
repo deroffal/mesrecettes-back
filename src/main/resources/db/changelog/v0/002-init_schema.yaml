@@ -36,3 +36,15 @@ databaseChangeLog:
                   name: date_creation
                   type: timestamp with timezone
                   remarks: date derniere synchro
+
+  - changeSet:
+      id: 1622040603102-00
+      author: deroffal
+      changes:
+        - addColumn:
+            schemaName: public
+            tableName: recette
+            columns:
+              - column:
+                  name: type_plat
+                  type: VARCHAR(16)
