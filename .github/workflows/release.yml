@@ -57,5 +57,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build & Push docker
-        run: mvn -B spring-boot:build-image -Dspring-boot.build-image.imageName=deroffal/mesrecettes-back && docker push deroffal/mesrecettes-back
+      - name: Build Docker
+        run: mvn -B spring-boot:build-image -Dspring-boot.build-image.imageName=deroffal/mesrecettes-back
+
+      - name: Push to DockerHub
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          docker tag deroffal/mesrecettes-back:latest deroffal/mesrecettes-back:${VERSION}
+          docker push deroffal/mesrecettes-back:${VERSION}
+          docker push deroffal/mesrecettes-back:latest
