@@ -19,10 +19,9 @@ class RecipeHandler(var recipeService: RecipeService) {
 
     var notFound = notFound().build()
 
-
     fun list(request: ServerRequest): Mono<ServerResponse> {
-        val dishType = request.queryParam("dishType").map { DishType.valueOf(it) }.orElse(null)
-        val source = request.queryParam("source").map { Source.valueOf(it) }.orElse(null)
+        val dishType = request.queryParam("dishType").map { DishType.valueOf(it) }
+        val source = request.queryParam("source").map { Source.valueOf(it) }
         val recipes = recipeService.findAllByDishTypeAndSource(dishType, source)
         return ok()
             .contentType(APPLICATION_JSON)

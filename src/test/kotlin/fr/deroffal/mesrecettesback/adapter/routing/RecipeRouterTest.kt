@@ -55,13 +55,13 @@ internal class RecipeRouterTest(
         exchange
             .expectStatus().isOk
             .expectBody()
-            .jsonPath("$.nom").isEqualTo("nom recette")
+            .jsonPath("$.name").isEqualTo("nom recette")
             .jsonPath("$.description").isEqualTo("description recette")
             .jsonPath("$.id").isEqualTo(id.toString())
-            .jsonPath("$.dateCreation").isEqualTo("2021-05-03T21:37:00Z")
-            .jsonPath("$.typePlat").isEqualTo("PLAT")
+            .jsonPath("$.creationDate").isEqualTo("2021-05-03T21:37:00Z")
+            .jsonPath("$.dishType").isEqualTo("MAIN_COURSE")
             .jsonPath("$.source").isEqualTo("WEB")
-            .jsonPath("$.sourceWeb").isEqualTo("https://www.marmiton.org/maRecette")
+            .jsonPath("$.webSource").isEqualTo("https://www.marmiton.org/maRecette")
     }
 
     @Test

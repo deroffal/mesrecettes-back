@@ -22,12 +22,12 @@ class RecipeService(
 
     fun save(recipe: Recipe) = recipeRepository.save(recipe)
 
-    fun findAllByDishTypeAndSource(dishType: DishType?, source: Source?): Flux<Recipe> {
+    fun findAllByDishTypeAndSource(dishType: Optional<DishType>, source: Optional<Source>): Flux<Recipe> {
         val criterias = mutableListOf<CriteriaDefinition>()
-        if (dishType != null) {
+        if (dishType.isPresent) {
             criterias += where("dishType").`is`(dishType.toString())
         }
-        if (dishType != null) {
+        if (dishType.isPresent) {
             criterias += where("source").`is`(source.toString())
         }
 
