@@ -8,13 +8,13 @@ import javax.persistence.EnumType.STRING
 import javax.persistence.Enumerated
 
 @Table
-data class Recette(
-    var nom: String,
+data class Recipe(
+    var name: String,
     var description: String,
-    var dateCreation: Instant = Instant.now(),
-    @Enumerated(STRING) var typePlat: TypePlat,
+    var creationDate: Instant = Instant.now(),
+    @Enumerated(STRING) var dishType: DishType,
     @Enumerated(STRING) var source: Source,
-    var sourceWeb: String
+    var webSource: String
 ) {
 
     @Id

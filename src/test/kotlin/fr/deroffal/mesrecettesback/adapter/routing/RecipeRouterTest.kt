@@ -1,10 +1,7 @@
 package fr.deroffal.mesrecettesback.adapter.routing
 
-import fr.deroffal.mesrecettesback.domain.model.Recette
-import fr.deroffal.mesrecettesback.domain.model.Source
-import fr.deroffal.mesrecettesback.domain.model.TypePlat
-import fr.deroffal.mesrecettesback.domain.services.RecetteService
-import fr.deroffal.mesrecettesback.model.RecetteBuilder
+import fr.deroffal.mesrecettesback.domain.services.RecipeService
+import fr.deroffal.mesrecettesback.model.RecipeBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,14 +19,14 @@ import java.util.*
 
 
 @ExtendWith(SpringExtension::class)
-@ContextConfiguration(classes = [RecetteRouter::class, RecetteHandler::class])
+@ContextConfiguration(classes = [RecipeRouter::class, RecipeHandler::class])
 @WebFluxTest
-internal class RecetteRouterTest(
+internal class RecipeRouterTest(
     private val context: ApplicationContext
 ) {
 
     @MockBean
-    lateinit var recetteService: RecetteService
+    lateinit var recipeService: RecipeService
 
     var webTestClient: WebTestClient? = null
 
@@ -43,11 +40,11 @@ internal class RecetteRouterTest(
         //given:
         val id = UUID.randomUUID()
         val now = Instant.parse("2021-05-03T21:37:00.000Z")
-        val recette = Mono.just(RecetteBuilder(dateCreation = now).build()
+        val recette = Mono.just(RecipeBuilder(creationDate = now).build()
             .apply {
                 this.id = id
             })
-        `when`(recetteService.findById(id)).thenReturn(recette)
+        `when`(recipeService.findById(id)).thenReturn(recette)
 
         //when:
         val exchange = webTestClient!!.get()
@@ -71,7 +68,7 @@ internal class RecetteRouterTest(
     fun `Recuperation d'une recette par id - id inconnu`() {
         //given:
         val id = UUID.randomUUID()
-        `when`(recetteService.findById(id)).thenReturn(Mono.empty())
+        `when`(recipeService.findById(id)).thenReturn(Mono.empty())
 
         //when:
         val exchange = webTestClient!!.get()

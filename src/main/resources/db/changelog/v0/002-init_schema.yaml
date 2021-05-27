@@ -14,28 +14,28 @@ databaseChangeLog:
       changes:
         - createTable:
             schemaName: public
-            tableName: recette
+            tableName: recipe
             columns:
               - column:
                   name: id
                   type: ${uuid_type}
                   defaultValueComputed: ${uuid_function}
-                  remarks: id technique
+                  remarks: technical id
                   constraints:
                     primaryKey: true
-                    primaryKeyName: recettePK
+                    primaryKeyName: recipePK
               - column:
-                  name: nom
+                  name: name
                   type: VARCHAR(128)
-                  remarks: id fonctionnel
+                  remarks: recipe name
               - column:
                   name: description
                   type: VARCHAR(255)
-                  remarks: description de la recette
+                  remarks: recipe description
               - column:
-                  name: date_creation
+                  name: creation_date
                   type: timestamp with timezone
-                  remarks: date derniere synchro
+                  remarks: creation date
 
   - changeSet:
       id: 1622040603102-00
@@ -43,10 +43,10 @@ databaseChangeLog:
       changes:
         - addColumn:
             schemaName: public
-            tableName: recette
+            tableName: recipe
             columns:
               - column:
-                  name: type_plat
+                  name: dish_type
                   type: VARCHAR(16)
 
   - changeSet:
@@ -55,14 +55,14 @@ databaseChangeLog:
       changes:
         - addColumn:
             schemaName: public
-            tableName: recette
+            tableName: recipe
             columns:
               - column:
                   name: source
                   type: VARCHAR(16)
               - column:
-                  name: source_web
+                  name: web_source
                   type: VARCHAR(128)
         - sql:
             dbms: 'postgresql'
-            sql: ALTER TABLE public.recette ADD CONSTRAINT recette_sourceWeb_check CHECK (source='WEB' and source_web is not null)
+            sql: ALTER TABLE public.recipe ADD CONSTRAINT recipe_webSource_check CHECK (source='WEB' and web_source is not null)

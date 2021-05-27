@@ -7,14 +7,14 @@ import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.web.reactive.function.server.router
 
 @Configuration
-class RecetteRouter(private val recetteHandler: RecetteHandler) {
+class RecipeRouter(private val recipeHandler: RecipeHandler) {
 
     @Bean
     fun route() = router {
         ("/recette" and accept(APPLICATION_JSON)).nest {
-            GET("/", recetteHandler::list)
-            POST("/", recetteHandler::createRecette)
-            GET("/{id}", recetteHandler::getRecette)
+            GET("/", recipeHandler::list)
+            POST("/", recipeHandler::createRecette)
+            GET("/{id}", recipeHandler::getRecette)
         }
 
     }
