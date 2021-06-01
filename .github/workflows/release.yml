@@ -57,6 +57,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Checkout tag
+        run: git checkout $(git describe --abbrev=0 --tags)
+
       - name: Build Docker
         run: mvn -B spring-boot:build-image -Dspring-boot.build-image.imageName=deroffal/mesrecettes-back
 
