@@ -1,8 +1,8 @@
 package fr.deroffal.mesrecettesback.model
 
-import fr.deroffal.mesrecettesback.domain.model.Recipe
-import fr.deroffal.mesrecettesback.domain.model.Source
-import fr.deroffal.mesrecettesback.domain.model.DishType
+import fr.deroffal.mesrecettesback.domain.model.recipe.Recipe
+import fr.deroffal.mesrecettesback.domain.model.recipe.Source
+import fr.deroffal.mesrecettesback.domain.model.recipe.DishType
 import java.time.Instant
 
 data class RecipeBuilder(

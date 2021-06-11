@@ -1,6 +1,6 @@
 package fr.deroffal.mesrecettesback.adapter.routing
 
-import fr.deroffal.mesrecettesback.domain.services.RecipeService
+import fr.deroffal.mesrecettesback.domain.services.recipe.RecipeService
 import fr.deroffal.mesrecettesback.model.RecipeBuilder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -19,7 +19,7 @@ import java.util.*
 
 
 @ExtendWith(SpringExtension::class)
-@ContextConfiguration(classes = [RecipeRouter::class, RecipeHandler::class])
+@ContextConfiguration(classes = [Routers::class, RecipeHandler::class])
 @WebFluxTest
 internal class RecipeRouterTest(
     private val context: ApplicationContext
@@ -27,6 +27,9 @@ internal class RecipeRouterTest(
 
     @MockBean
     lateinit var recipeService: RecipeService
+
+    @MockBean
+    lateinit var administrationHandler: AdministrationHandler
 
     var webTestClient: WebTestClient? = null
 

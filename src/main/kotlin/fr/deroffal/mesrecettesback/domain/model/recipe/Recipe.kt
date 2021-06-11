@@ -1,4 +1,4 @@
-package fr.deroffal.mesrecettesback.domain.model
+package fr.deroffal.mesrecettesback.domain.model.recipe
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table

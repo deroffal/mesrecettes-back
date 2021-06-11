@@ -1,9 +1,9 @@
 package fr.deroffal.mesrecettesback.adapter.routing
 
-import fr.deroffal.mesrecettesback.domain.model.DishType
-import fr.deroffal.mesrecettesback.domain.model.Recipe
-import fr.deroffal.mesrecettesback.domain.model.Source
-import fr.deroffal.mesrecettesback.domain.services.RecipeService
+import fr.deroffal.mesrecettesback.domain.model.recipe.DishType
+import fr.deroffal.mesrecettesback.domain.model.recipe.Recipe
+import fr.deroffal.mesrecettesback.domain.model.recipe.Source
+import fr.deroffal.mesrecettesback.domain.services.recipe.RecipeService
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest

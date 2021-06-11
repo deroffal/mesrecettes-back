@@ -1,8 +1,8 @@
-package fr.deroffal.mesrecettesback.domain.services
+package fr.deroffal.mesrecettesback.domain.services.recipe
 
-import fr.deroffal.mesrecettesback.domain.model.DishType
-import fr.deroffal.mesrecettesback.domain.model.Recipe
-import fr.deroffal.mesrecettesback.domain.model.Source
+import fr.deroffal.mesrecettesback.domain.model.recipe.DishType
+import fr.deroffal.mesrecettesback.domain.model.recipe.Recipe
+import fr.deroffal.mesrecettesback.domain.model.recipe.Source
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.data.relational.core.query.Criteria.empty
 import org.springframework.data.relational.core.query.Criteria.where
@@ -21,6 +21,8 @@ class RecipeService(
     fun findById(id: UUID) = recipeRepository.findById(id)
 
     fun save(recipe: Recipe) = recipeRepository.save(recipe)
+
+    fun saveAll(recipes: Iterable<Recipe>) = recipeRepository.saveAll(recipes)
 
     fun findAllByDishTypeAndSource(dishType: Optional<DishType>, source: Optional<Source>): Flux<Recipe> {
         val criterias = mutableListOf<CriteriaDefinition>()
