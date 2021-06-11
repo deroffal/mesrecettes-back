@@ -1,0 +1,12 @@
+# Lancer la base de données en local pour développer dessus.
+
+version: "3.9"
+services:
+  db:
+    image: postgres:13.2
+    container_name: "mesrecettes-db"
+    environment:
+      POSTGRES_DB: mesrecettesdb
+      POSTGRES_PASSWORD: pwd
+    ports:
+      - "54320:5432"
