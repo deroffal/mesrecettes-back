@@ -31,12 +31,9 @@ class RecipeService(
             criterias += where("source").`is`(source.toString())
         }
 
+        val query = query(empty().and(criterias))
         return r2dbcEntityTemplate.select(Recipe::class.java)
-            .matching(
-                query(
-                    empty().and(criterias)
-                )
-            )
+            .matching(query)
             .all()
     }
 

@@ -15,15 +15,12 @@ class RecipeRouter(private val recipeHandler: RecipeHandler) {
     val onlySlash = RequestPredicates.path("/")
 
     @Bean
-    fun route(): RouterFunction<ServerResponse> {
-
-        return router {
-            ("/recette" and accept(APPLICATION_JSON)).nest {
-                GET("" or onlySlash, recipeHandler::list)
-                POST("/", recipeHandler::createRecette)
-                GET("/{id}", recipeHandler::getRecette)
-            }
-
+    fun route(): RouterFunction<ServerResponse> = router {
+        ("/recette" and accept(APPLICATION_JSON)).nest {
+            GET("" or onlySlash, recipeHandler::list)
+            POST("/", recipeHandler::createRecette)
+            GET("/{id}", recipeHandler::getRecette)
         }
+
     }
 }
