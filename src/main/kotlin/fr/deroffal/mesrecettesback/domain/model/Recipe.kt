@@ -10,7 +10,7 @@ import javax.persistence.Enumerated
 @Table
 data class Recipe(
     var name: String,
-    var description: String,
+    var description: String? = null,
     var creationDate: Instant = Instant.now(),
     @Enumerated(STRING) var dishType: DishType,
     @Enumerated(STRING) var source: Source,

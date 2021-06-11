@@ -66,3 +66,12 @@ databaseChangeLog:
         - sql:
             dbms: 'postgresql'
             sql: ALTER TABLE public.recipe ADD CONSTRAINT recipe_webSource_check CHECK (source='WEB' and web_source is not null)
+
+  - changeSet:
+      id: 1623418909978-01
+      author: deroffal
+      changes:
+        - dropNotNullConstraint:
+            schemaName: public
+            tableName: recipe
+            columnName: description
