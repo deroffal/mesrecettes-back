@@ -15,7 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import reactor.core.publisher.Mono
 import java.time.Instant
-import java.util.*
 
 
 @ExtendWith(SpringExtension::class)
@@ -41,12 +40,10 @@ internal class RecipeRouterTest(
     @Test
     fun `Recuperation d'une recette par id`() {
         //given:
-        val id = UUID.randomUUID()
+        val id = "UUID.randomUUID()"
         val now = Instant.parse("2021-05-03T21:37:00.000Z")
         val recette = Mono.just(RecipeBuilder(creationDate = now).build()
-            .apply {
-                this.id = id
-            })
+            .apply { this.id = id })
         `when`(recipeService.findById(id)).thenReturn(recette)
 
         //when:
@@ -70,7 +67,7 @@ internal class RecipeRouterTest(
     @Test
     fun `Recuperation d'une recette par id - id inconnu`() {
         //given:
-        val id = UUID.randomUUID()
+        val id = "uuid"
         `when`(recipeService.findById(id)).thenReturn(Mono.empty())
 
         //when:

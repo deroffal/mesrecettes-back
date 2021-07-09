@@ -15,9 +15,9 @@ import java.net.URI
 import java.util.*
 
 @Component
-class RecipeHandler(var recipeService: RecipeService) {
+class RecipeHandler(val recipeService: RecipeService) {
 
-    var notFound = notFound().build()
+    val notFound = notFound().build()
 
     fun list(request: ServerRequest): Mono<ServerResponse> {
         val dishType = request.queryParam("dishType").map { DishType.valueOf(it) }
@@ -29,7 +29,7 @@ class RecipeHandler(var recipeService: RecipeService) {
     }
 
     fun getRecette(request: ServerRequest) =
-        UUID.fromString(request.pathVariable("id")).toMono()
+        request.pathVariable("id").toMono()
             .flatMap { recipeService.findById(it) }
             .flatMap {
                 ok()

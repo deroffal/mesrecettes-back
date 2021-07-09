@@ -3,10 +3,11 @@
 version: "3.9"
 services:
   db:
-    image: postgres:13.2
+    image: mongo:4.4.6
     container_name: "mesrecettes-db"
-    environment:
-      POSTGRES_DB: mesrecettesdb
-      POSTGRES_PASSWORD: pwd
+#    environment:
+#      POSTGRES_DB: mesrecettesdb
+#      POSTGRES_PASSWORD: pwd
     ports:
-      - "54320:5432"
+      - "27017:27017"
+# exposé:interne

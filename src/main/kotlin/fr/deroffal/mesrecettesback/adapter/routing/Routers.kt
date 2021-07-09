@@ -3,8 +3,11 @@ package fr.deroffal.mesrecettesback.adapter.routing
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
-import org.springframework.web.reactive.function.server.*
+import org.springframework.web.reactive.function.server.RequestPredicate
 import org.springframework.web.reactive.function.server.RequestPredicates.path
+import org.springframework.web.reactive.function.server.RouterFunction
+import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.router
 
 private fun String.andOptionalSlash(): RequestPredicate = path(this).or(path("$this/"))
 
@@ -17,7 +20,7 @@ class Routers(
     @Bean
     fun recipeRoutes(): RouterFunction<ServerResponse> = router {
         ("/recette" and accept(MediaType.APPLICATION_JSON)).nest {
-            GET("" or RequestPredicates.path("/"), recipeHandler::list)
+            GET("".andOptionalSlash(), recipeHandler::list)
             POST("/", recipeHandler::createRecette)
             GET("/{id}".andOptionalSlash(), recipeHandler::getRecette)
         }

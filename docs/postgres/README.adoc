@@ -1,0 +1,6 @@
+= Postgres
+
+Archive de la 1ère version de la base de données : base de données relationnelle PostgreSQL avant migration MongoDB.
+
+* link:db[db: ]scripts liquibase (provient de `src/main/resources`)
+* link:docker-compose[docker-compose :]scripts pour lancer les conteneurs.

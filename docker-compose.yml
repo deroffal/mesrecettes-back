@@ -1,24 +1,24 @@
-# Déployer la dernière version de l'application sur la base de donnée.
-
-version: "3.9"
-services:
-  db:
-    image: postgres:13.2
-    container_name: "mesrecettes-db"
-    environment:
-      POSTGRES_DB: mesrecettesdb
-      POSTGRES_PASSWORD: pwd
-
-  app:
-    image: deroffal/mesrecettes-back:latest
-    container_name: "mesrecettes-back"
-    environment:
-      spring.r2dbc.url: r2dbc:postgresql://db:5432/mesrecettesdb
-      spring.r2dbc.username: postgres
-      spring.r2dbc.password: pwd
-      spring.liquibase.url: jdbc:postgresql://db:5432/mesrecettesdb
-      spring.liquibase.user: postgres
-      spring.liquibase.password: pwd
-    ports:
-      - "8080:8080"
-
+## Déployer la dernière version de l'application sur la base de donnée.
+#
+#version: "3.9"
+#services:
+#  db:
+#    image: postgres:13.2
+#    container_name: "mesrecettes-db"
+#    environment:
+#      POSTGRES_DB: mesrecettesdb
+#      POSTGRES_PASSWORD: pwd
+#
+#  app:
+#    image: deroffal/mesrecettes-back:latest
+#    container_name: "mesrecettes-back"
+#    environment:
+#      spring.r2dbc.url: r2dbc:postgresql://db:5432/mesrecettesdb
+#      spring.r2dbc.username: postgres
+#      spring.r2dbc.password: pwd
+#      spring.liquibase.url: jdbc:postgresql://db:5432/mesrecettesdb
+#      spring.liquibase.user: postgres
+#      spring.liquibase.password: pwd
+#    ports:
+#      - "8080:8080"
+#
