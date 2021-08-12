@@ -3,3 +3,18 @@
 * Projet Spring Boot / Reactive.
 * Intégration continue via Github Actions (Sonar, Release, Docker)
 * Tentative d'implémentation d'Architecture Onion.
+
+== Bootstrap
+
+. Récupérer l'image Docker et la démarrer :
++
+[source,bash]
+----
+docker run \
+docker run \
+-e "spring.data.mongodb.host=host.docker.internal" \
+-e "spring.data.mongodb.port=27017" \
+-e "spring.data.mongodb.database=mesrecettesdb" \
+-p 8080:8080 deroffal/mesrecettes-back:latest
+----
+

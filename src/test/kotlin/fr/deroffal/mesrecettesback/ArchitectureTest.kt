@@ -2,17 +2,37 @@ package fr.deroffal.mesrecettesback
 
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
+import com.tngtech.archunit.lang.ArchRule
+import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
+import com.tngtech.archunit.library.Architectures
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices
 
-@AnalyzeClasses(packagesOf = [ArchitectureTest::class])
+
+@AnalyzeClasses(
+    packagesOf = [ArchitectureTest::class],
+    packages = ["org.springframework.data.mongodb"]
+)
 internal class ArchitectureTest {
+
+    @ArchTest
+    var enforceHexagonalArchitechture: ArchRule = classes().that()
+        .resideInAPackage("$DOMAIN_PACKAGE..")
+        .should()
+        .onlyAccessClassesThat()
+        .resideInAnyPackage(
+            "$DOMAIN_PACKAGE..",
+            "kotlin.jvm..",
+            "kotlin.collections..",
+            "java.util..",
+            "java.time..",
+            "java.lang.."
+        )
 
     @ArchTest
     val `No package cycles` =
         slices().matching("$BASE_PACKAGE.(**)..")
             .should().beFreeOfCycles()
-
 
     @ArchTest
     val `the domain model does not have outgoing dependencies` =
@@ -34,6 +54,12 @@ internal class ArchitectureTest {
     val `one adapter should not access another adapter` =
         slices().matching("$ADAPTER_PACKAGE.(*)")
             .should().notDependOnEachOther()
+
+    @ArchTest
+    val `mongo should only be used in database adapter` = Architectures.layeredArchitecture()
+            .layer("mongoDb").definedBy("org.springframework.data.mongodb..")
+            .layer("databaseAdapter").definedBy("fr.deroffal.mesrecettesback.adapter.database..")
+        .whereLayer("mongoDb").mayOnlyBeAccessedByLayers("databaseAdapter")
 
     companion object {
         private val BASE_PACKAGE = ArchitectureTest::class.java.`package`.name

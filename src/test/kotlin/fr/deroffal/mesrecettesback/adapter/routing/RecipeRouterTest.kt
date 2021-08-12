@@ -30,7 +30,7 @@ internal class RecipeRouterTest(
     @MockBean
     lateinit var administrationHandler: AdministrationHandler
 
-    var webTestClient: WebTestClient? = null
+    private lateinit var webTestClient: WebTestClient
 
     @BeforeEach
     fun setup() {
@@ -47,7 +47,7 @@ internal class RecipeRouterTest(
         `when`(recipeService.findById(id)).thenReturn(recette)
 
         //when:
-        val exchange = webTestClient!!.get()
+        val exchange = webTestClient.get()
             .uri("/recette/$id").accept(APPLICATION_JSON)
             .exchange()
 
@@ -71,7 +71,7 @@ internal class RecipeRouterTest(
         `when`(recipeService.findById(id)).thenReturn(Mono.empty())
 
         //when:
-        val exchange = webTestClient!!.get()
+        val exchange = webTestClient.get()
             .uri("/recette/$id").accept(APPLICATION_JSON)
             .exchange()
 
