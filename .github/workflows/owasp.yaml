@@ -31,7 +31,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run OWASP dependency-check
-        run: mvn -B dependency-check:check
+        id: context
+        run: |
+          mvn -B dependency-check:check
+          echo "::set-output name=DEPENDENCY_CHECK_RESULT::$?"
 
       - name: Push report
         uses: EndBug/add-and-commit@v7
@@ -40,3 +43,8 @@ jobs:
           author_name: 'GitHub Actions'
           add : 'reports/dependencyTrack .'
           message: 'Update dependency-check report'
+
+      - name: Create issue if build fails
+        if: ${{ steps.context.outputs.DEPENDENCY_CHECK_RESULT == 0}}
+        run: echo "Boum !"
+
