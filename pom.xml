@@ -39,6 +39,8 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.projectKey>mesrecettes-back</sonar.projectKey>
 
+        <owasp.version>6.4.1</owasp.version>
+
         <kotest.version>4.6.1</kotest.version>
         <archunit-junit5.version>0.20.0</archunit-junit5.version>
     </properties>
@@ -173,7 +175,25 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${owasp.version}</version>
+                <configuration>
+                    <outputDirectory>reports/dependencyTrack</outputDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${owasp.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

@@ -1,0 +1,42 @@
+name: OWASP Analysis
+
+on:
+  push:
+    branches: [ owasp ]
+    paths-ignore:
+      - reports
+  schedule:
+    - cron: 0 9 * * 0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branche
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@master
+        with:
+          java-version: 11
+          distribution: 'adopt'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Run OWASP dependency-check
+        run: mvn -B dependency-check:check
+
+      - name: Push report
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_email: 'actions@github.com'
+          author_name: 'GitHub Actions'
+          add : 'reports/dependencyTrack .'
+          message: 'Update dependency-check report'
