@@ -16,7 +16,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@master
         with:
-          java-version: 14
+          java-version: 17
           distribution: 'adopt'
           server-id: github
           settings-path: ${{ github.workspace }}

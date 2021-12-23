@@ -20,7 +20,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@master
         with:
-          java-version: 14
+          java-version: 17
           distribution: 'adopt'
 
       - name: Cache SonarCloud packages
